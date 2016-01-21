@@ -1,0 +1,42 @@
+{% include "header.html" %}
+{% if title %}
+<title>{{ title }} - UCSpyWeb</title>
+{% else %}
+    <title>UCSpyWeb</title>
+{% endif %}
+</head>
+{% include "menu.html" %}
+
+<table  class="info table-responsive " align="center" style="width:80%">
+  <table class="table table-responsive" align="center" style="width:80%"><tbody>
+    <tr class="bg-primary">
+      <td width=5% align='center' valign='center' ><strong>#</strong></td>
+      <td width=10% align='center' valign='center' ><strong>Name</strong></td>
+      {% if 'username' in session %}
+      <td width=5% align='center' valign='center' ><strong>ID</strong></td>
+      {% endif %}
+      <!--<td width=8% align='center' valign='center' ><strong>Description</strong></td>-->
+      <td width=8% align='center' valign='center' ><strong>Join Throphies</strong></td>
+      <td width=8% align='center' valign='center' ><strong>Level</strong></td>
+      <td width=8% align='center' valign='center' ><strong>Experience</strong></td>
+      <td width=8% align='center' valign='center' ><strong>Members</strong></td>
+      <td width=8% align='center' valign='center' ><strong>Messages</strong></td>
+      <td width=8% align='center' valign='center' ><strong>Location</strong></td>
+{% for inf in info %}
+</tr>
+<tr class='table'>
+<td align='center' valign='center'>{{ inf['pos']}}</td>
+<td align='center' valign='center'><a href="/clan/{{ base64((inf['id']|string).encode('UTF-8')).decode('utf-8')}}">{{ inf['name']}} <i class="fa fa-external-link"></i></a></td>
+{% if 'username' in session %}
+    <td align='center' valign='center'>{{ inf['id'] }}</td>
+{% endif %}
+<!--<td align='center' valign='center'>{{ inf['description'] }}</td>-->
+<td align='center' valign='center'>{{ inf['needed_score'] }}</td>
+<td align='center' valign='center'>{{ inf['level'] }}</td>
+<td align='center' valign='center'>{{ inf['experience'] }}</td>
+<td align='center' valign='center'>{{ inf['members_len'] }}</td>
+<td align='center' valign='center'>{{ inf['messages_len'] }}</td>
+<td align='center' valign='center'>{{ inf['location'] }}</td>
+{% endfor %}
+{% include "pagination2.html" %}
+{% include "footer.html" %}

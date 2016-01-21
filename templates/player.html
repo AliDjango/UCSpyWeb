@@ -1,0 +1,229 @@
+{% include "header.html" %}
+{% if title %}
+<title>{{ title }} - UCSpyWeb</title>
+{% else %}
+    <title>UCSpyWeb</title>
+{% endif %}
+</head>
+{% include "menu.html" %}
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+  <div><tr>
+                <td colspan="2" class="bg-primary"><b>Profile : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" border="0" cellpadding="1" cellspacing="1" width="80%">
+            <tbody>
+                  <tr class="table">
+                      <td><b>Name:</b></td>
+                        <td>{{general_info['name']}}</td>
+
+                  </tr>
+                  {% if 'username' in session %}
+                  <tr class="table">
+                      <td><b>ID:</b></td>
+                        <td>{{general_info['id']}}</td>
+                      {% endif %}
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>level:</b></td>
+                        <td>{{general_info['level']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Account Status:</b></td>
+                        <td>{{general_info['status']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Last Login:</b></td>
+                        <td>{{general_info['last_update']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Thropies:</b></td>
+                        <td>{{general_info['score']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Gems:</b></td>
+                        <td>{{general_info['gems']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Golds:</b></td>
+                        <td>{{general_info['gold']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>experience:</b></td>
+                        <td>115</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Elixir:</b></td>
+                        <td>{{general_info['elixir']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Dark Elixir:</b></td>
+                        <td>{{general_info['darkelixir']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>privileges:</b></td>
+                        <td>{{general_info['privileges']}}</td>
+
+                  </tr>
+
+                  <tr class="table">
+                      <td><b>Town Hall:</b></td>
+                        <td>{{general_info['townhall']}}</td>
+                  </tr>
+            </tbody></table></div>
+  <br></br>
+
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Resources : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+            {% for resource in resources %}
+                  <tr class="table">
+                      <td width="50%"><b>{{ resource }}</td>
+                        <td width="50%">{{resources[resource]}}</td>
+                      </tr>
+            {% endfor %}
+
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Army Level : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+            {% for unit in unit_level %}
+                  <tr class="table">
+                      <td width="50%"><b>{{unit}} Level</b></td>
+                        <td width="50%">{{unit_level[unit]}}</td>
+                      </tr>
+            {% endfor %}
+            {% for spell in spell_level %}
+                  <tr class="table">
+                      <td width="50%"><b>{{spell}} Level</b></td>
+                        <td width="50%">{{spell_level[spell]}}</td>
+                      </tr>
+            {% endfor %}
+            {% for hero in hero_level %}
+                  <tr class="table">
+                      <td width="50%"><b>{{hero}} Level</b></td>
+                        <td width="50%">{{hero_level[hero]}}</td>
+                      </tr>
+            {% endfor %}
+            </tbody></table></div>
+  <br></br>
+            </tbody></table>
+
+  <div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Decorations : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+            {%for deco in decos %}
+                  <tr class="table">
+                      <td width="50%"><b>{{deco}} Quantity of</b></td>
+                        <td width="50%">{{decos[deco]}}</td>
+                      </tr>
+            {% endfor %}
+{% if 'username' in session %}
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Traps : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+            {%for trap in traps %}
+                  <tr class="table">
+                      <td width="50%"><b>{{trap}} Quantity of</b></td>
+                        <td width="50%">{{traps[trap]}}</td>
+                      </tr>
+            {% endfor %}
+{% endif %}
+  <div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>obstacles : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+            {%for obstacle in obstacles %}
+                  <tr class="table">
+                      <td width="50%"><b>{{obstacle}} Quantity of</b></td>
+                        <td width="50%">{{obstacles[obstacle]}}</td>
+                      </tr>
+            {% endfor %}
+
+            </tbody></table></div>
+    <div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Buildings : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+            {%for building in buildings %}
+                  <tr class="table">
+                      <td width="50%"><b>{{building}} Quantity of</b></td>
+                        <td width="50%">{{buildings[building]}}</td>
+                      </tr>
+            {% endfor %}
+            </tbody></table></div>
+
+  {% if clan!=None %}
+  <div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Clan : <b>{{general_info['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+                  <tr class="table">
+                      <td width="50%"><b>Name:</b></td>
+                        <td width="50%"><a href="/clan/{{ base64((clan['id']|string).encode('UTF-8')).decode('utf-8')}}">{{clan['name']}} <i class="fa fa-external-link"></i></a></td></td>
+                      </tr>
+                    {% if 'username' in session %}
+                  <tr class="table">
+                      <td width="50%"><b>ID:</b></td>
+                        <td width="50%">{{clan['id']}}</td>
+                      </tr>
+                  {% endif %}
+                  <tr class="table">
+                      <td width="50%"><b>Description:</b></td>
+                        <td width="50%">{{clan['description']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Members:</b></td>
+                        <td width="50%">{{clan['members_len']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Messages:</b></td>
+                        <td width="50%">{{clan['messages_len']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Thropies:</b></td>
+                        <td width="50%">{{clan['score']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Thropies Needed to join:</b></td>
+                        <td width="50%">{{clan['needed_score']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Level:</b></td>
+                        <td width="50%">{{clan['level']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Experience:</b></td>
+                        <td width="50%">{{clan['experience']}}</td>
+                      </tr>
+            </tbody></table></div>
+  {% endif %}
+{% include "footer.html" %}

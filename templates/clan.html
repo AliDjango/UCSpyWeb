@@ -1,0 +1,96 @@
+{% include "header.html" %}
+{% if title %}
+<title>{{ title }} - UCSpyWeb</title>
+{% else %}
+    <title>UCSpyWeb</title>
+{% endif %}
+</head>
+{% include "menu.html" %}
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Clan : <b>{{clan['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+                  <tr class="table">
+                      <td width="50%"><b>Name:</b></td>
+                        <td width="50%">{{clan['name']}}</td>
+                      </tr>
+                    {% if 'username' in session %}
+                  <tr class="table">
+                      <td width="50%"><b>ID:</b></td>
+                        <td width="50%">{{clan['id']}}</td>
+                      </tr>
+                  {% endif %}
+                  <tr class="table">
+                      <td width="50%"><b>Description:</b></td>
+                        <td width="50%">{{clan['description']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Members:</b></td>
+                        <td width="50%">{{clan['members_len']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Messages:</b></td>
+                        <td width="50%">{{clan['messages_len']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Thropies:</b></td>
+                        <td width="50%">{{clan['score']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Thropies Needed to join:</b></td>
+                        <td width="50%">{{clan['needed_score']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Level:</b></td>
+                        <td width="50%">{{clan['level']}}</td>
+                      </tr>
+                  <tr class="table">
+                      <td width="50%"><b>Experience:</b></td>
+                        <td width="50%">{{clan['experience']}}</td>
+                      </tr>
+                    <tr class="table">
+                      <td width="50%"><b>location:</b></td>
+                        <td width="50%">{{clan['location']}}</td>
+                      </tr>
+            </tbody></table></div>
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Clan : <b>{{clan['name']}}</b></td></tr>
+<table class="table table-responsive" align="center" width="80%">
+            <tbody>
+                    {% for member in clan['members'] %}
+                      <tr class="table">
+                      <td width="50%"><b><a href="/user/{{ base64((clan['members'][member]['id']|string).encode('UTF-8')).decode("utf-8")}}">{{member}} <i class="fa fa-external-link"></i></a></b></td>
+                        <td width="50%">{{clan['members'][member]['role']}}</td>
+                          {% if 'username' in session %}
+                          <td width="50%">{{clan['members'][member]['id']}}</td>
+                          {% endif %}
+                      </tr>
+                    {% endfor %}
+</tbody></table></div>
+{% if 'username' in session %}
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+  <tbody><tr><td colspan="2" class="bg-primary"><b>Messages :{{clan['name']}}</b></td></tr></tbody></table>
+    <table  class="info table-responsive " align="center" style="width:80%">
+  <table class="table table-responsive" align="center" style="width:80%"><tbody>
+    <tr class="bg-primary">
+      <td width='5%' align='center' valign='center' ><strong>#</strong></td>
+      <td width='20%' align='center' valign='center' ><strong>Name</strong></td>
+        <td width='10%' align='center' valign='center' ><strong>ID</strong></td>
+        <td width='10%' align='center' valign='center' ><strong>Role</strong></td>
+        <td width='70%' align='center' valign='center' ><strong>Message</strong></td>
+        </tr>
+                    {% for message in clan['messages'] %}
+                        <tr class='table'>
+                        <td align='center' valign='center'>{{message['pos']+1}}</td>
+                        <td align='center' valign='center'><a href="/user/{{ base64((message['sender_id']|string).encode('UTF-8')).decode('utf-8')}}">{{message['sender_name']}} <i class="fa fa-external-link"></i></a></td>
+                        <td align='center' valign='center'>{{message['sender_id']}}</td>
+                        <td align='center' valign='center'>{{message['sender_role']}}</td>
+                        <td align='center' valign='center'>{{message['message']}}</td>
+                        </tr>
+                    {% endfor %}
+</tbody></table></div>
+{% endif %}
+{% include "footer.html" %}

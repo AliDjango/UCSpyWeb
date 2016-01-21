@@ -1,0 +1,14 @@
+{% include "header.html" %}
+{% if title %}
+<title>{{ title }} - UCSpyWeb</title>
+{% else %}
+    <title>UCSpyWeb</title>
+{% endif %}
+</head>
+{% include "menu.html" %}
+<div class="standard">
+    <div class="jumbotron">
+        <h3 align="center">{{error}}</h3>
+        
+      </div>
+{% include "footer.html" %}

@@ -1,0 +1,168 @@
+@font-face{
+	font-family: 'Open Sans';
+	src: url('/static/fonts/opensans-regular-webfont.eot');
+	src: url('/static/fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('/static/fonts/opensans-regular-webfont.woff') format('woff'),
+	     url('/static/fonts/opensans-regular-webfont.ttf') format('truetype'),
+	     url('/static/fonts/opensans-regular-webfont.svg#webfont') format('svg');
+}
+@font-face{
+	font-family: 'Open Sans Bold';
+	src: url('/static/fonts/opensans-bold-webfont.eot');
+	src: url('/static/fonts/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('/static/fonts/opensans-bold-webfont.woff') format('woff'),
+	     url('/static/fonts/opensans-bold-webfont.ttf') format('truetype'),
+	     url('/static/fonts/opensans-bold-webfont.svg#webfont') format('svg');
+}
+@font-face{
+	font-family: 'Open Sans Light';
+	src: url('/static/fonts/opensans-light-webfont.eot');
+	src: url('/static/fonts/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('/static/fonts/opensans-light-webfont.woff') format('woff'),
+	     url('/static/fonts/opensans-light-webfont.ttf') format('truetype'),
+	     url('/static/fonts/opensans-light-webfont.svg#webfont') format('svg');
+}
+@font-face{
+	font-family: 'Open Sans Semibold';
+	src: url('/static/fonts/opensans-semibold-webfont.eot');
+	src: url('/static/fonts/opensans-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('/static/fonts/opensans-semibold-webfont.woff') format('woff'),
+	     url('/static/fonts/opensans-semibold-webfont.ttf') format('truetype'),
+	     url('/static/fonts/opensans-semibold-webfont.svg#webfont') format('svg');
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+label, input {
+    display: block;
+}
+
+label {
+    margin-bottom: 20px;
+}
+
+.standard{
+	width:80%;
+	margin:auto;
+}
+
+.banned{
+	color:red;
+	font-weight: bold;
+}
+.owner{
+	color:darkblue;
+	font-family:"Open Sans Semibold";
+	font-weight: bold;
+}
+.Online{
+	color: #00bf02;
+	font-weight: bold;
+}
+.Offline{
+	color: #bf0c00;
+	font-weight: bold;
+}
+.container2{
+	background-color:#2aabd2;
+	width:60%;
+	margin:auto;
+}
+body{
+	font-family:"Open Sans" !important;
+	background: transparent url(/static/images/bg.png) repeat 0 0;
+	color: #847d6b;
+	padding: 30px 0 30px 0;
+
+}
+.button {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #eeeeee;
+  *background-color: #eeeeee;
+  background-image: -moz-linear-gradient(top, #eeeeee, #eeeeee);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#eeeeee));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #eeeeee);
+  background-image: -o-linear-gradient(top, #eeeeee, #eeeeee);
+  background-image: linear-gradient(to bottom, #eeeeee, #eeeeee);
+  background-image: none;
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: #eeeeee #eeeeee #c8c8c8;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeeeeee', endColorstr='#ffeeeeee', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: none;
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: none;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: none;
+}
+.button-primary {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #2e7bcc;
+  *background-color: #2e63cc;
+  background-image: -moz-linear-gradient(top, #2e8bcc, #2e63cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2e8bcc), to(#2e63cc));
+  background-image: -webkit-linear-gradient(top, #2e8bcc, #2e63cc);
+  background-image: -o-linear-gradient(top, #2e8bcc, #2e63cc);
+  background-image: linear-gradient(to bottom, #2e8bcc, #2e63cc);
+  background-image: none;
+  background-repeat: repeat-x;
+  border-color: #2e63cc #2e63cc #20458e;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2e8bcc', endColorstr='#ff2e63cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.nav{
+	font-family:"Open Sans light" !important;
+	font-weight: 600;
+}
+/* xs < 768 */
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 0.9em;
+    }
+}
+
+/* sm */
+@media screen and (min-width: 768px) {
+    body {
+        font-size: 1em;
+    }
+}
+
+/* md */
+@media screen and (min-width: 992px) {
+    body {
+        font-size: 1.2em;
+    }
+}
+
+/* lg */
+@media screen and (min-width: 1200px) {
+    body {
+        font-size: 1.3em;
+    }
+}

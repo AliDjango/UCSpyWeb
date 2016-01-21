@@ -1,0 +1,116 @@
+{% include "header.html" %}
+{% if title %}
+<title>{{ title }} - UCSpyWeb</title>
+{% else %}
+    <title>UCSpyWeb</title>
+{% endif %}
+</head>
+{% include "menu.html" %}
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+                <td colspan="2" class="bg-primary"><b>General Server Statistics</b></td></tr>
+<table class="table table-responsive" align="center" border="0" cellpadding="1" cellspacing="1" width="80%">
+            <tbody>
+                  <tr class="table">
+                      <td><b>Server Status:</b></td>
+                        <td class="{{info['serveronline']}}">{{info['serveronline']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Online <a href="{{ url_for('index') }}">Players</a>:</b></td>
+                        <td>{{info['onlineplayers']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Total <a href="{{ url_for('index') }}">Players</a>:</b></td>
+                        <td>{{info['totalplayers']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Total <a href="{{ url_for('clans') }}">Clans</a>:</b></td>
+                        <td>{{info['totalclans']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Total Connected Clients:</b></td>
+                        <td>{{info['totalconnectedclients']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Maintenance:</b></td>
+                        <td>{{info['maintenance']}}</td>
+                  </tr>
+                  {% if info['maintenance']=='Yes' %}
+                  <tr class="table">
+                      <td><b>Maintenance Time:</b></td>
+                        <td>{{info['maintenancetimeleft']|int//60}}Minutes And {{info['maintenancetimeleft']|int%60}} seconds</td>
+                  </tr>
+                  {% endif %}
+                  </tbody></table></table></div>
+
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+                <td colspan="2" class="bg-primary"><b>Starting Information</b></td></tr>
+<table class="table table-responsive" align="center" border="0" cellpadding="1" cellspacing="1" width="80%">
+            <tbody>
+                  <tr class="table">
+                      <td><b>Starting Golds:</b></td>
+                        <td>{{info['startinggold']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Starting Elixir:</b></td>
+                        <td>{{info['startingelixir']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Starting Dark Elixir:</b></td>
+                        <td>{{info['startingdarkelixir']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Starting Gems:</b></td>
+                        <td>{{info['startinggems']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Starting Level:</b></td>
+                        <td>{{info['startinglevel']}} And {{info['startingexperience']}} Experience(s)</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Starting Throphies:</b></td>
+                        <td>{{info['startingtrophies']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Starting Shield Time:</b></td>
+                        <td>{{info['startingshieldtime']|int//60}} Minutes And {{info['startingshieldtime']|int%60}} seconds</td>
+                  </tr>
+                  </tbody></table></table></div>
+{% if session['username'] %}
+<div class='standard'>
+<table class="table table-responsive" width="80%">
+                <td colspan="2" class="bg-primary"><b>Administrator Information</b></td></tr>
+<table class="table table-responsive" align="center" border="0" cellpadding="1" cellspacing="1" width="80%">
+            <tbody>
+                  <tr class="table">
+                      <td><b>Client Version:</b></td>
+                        <td>{{info['clientversion']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Server Version:</b></td>
+                        <td>{{info['serverversion']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Codename:</b></td>
+                        <td>{{info['Codename']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Server Port:</b></td>
+                        <td>{{info['serverport']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>Logging Level:</b></td>
+                        <td>{{info['logginglevel']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>In Memory Players:</b></td>
+                        <td>{{info['inmemoryplayers']}}</td>
+                  </tr>
+                  <tr class="table">
+                      <td><b>In Memory Clans:</b></td>
+                        <td>{{info['inmemoryclans']}}</td>
+                  </tr>
+                  </tbody></table></table></div>
+{% endif %}
+{% include "footer.html" %}

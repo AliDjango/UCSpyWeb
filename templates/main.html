@@ -1,0 +1,56 @@
+{% include "header.html" %}
+{% if title %}
+<title>{{ title }} - UCSpyWeb</title>
+{% else %}
+    <title>UCSpyWeb</title>
+{% endif %}
+</head>
+{% include "menu.html" %}
+{% include "pagination.html" %}
+<table  class="table table-responsive " align="center" style="width:80%">
+  <table class="table table-responsive" align="center" style="width:80%"><tbody>
+    <tr class="bg-primary">
+      <td width='5%' align='center' valign='center' ><strong>#</strong></td>
+      <td width='10%' align='center' valign='center' ><strong>Name</strong></td>
+      {% if 'username' in session %}
+      <td width=5%' align='center' valign='center' ><strong>ID</strong></td>
+      {% endif %}
+      <td width='8%' align='center' valign='center' ><strong>Town Hall</strong></td>
+      <td width='5%' align='center' valign='center' ><strong>Level</strong></td>
+	  <td width='10%' align='center' valign='center' ><strong>Last Login</strong></td>
+	  <td width='10%' align='center' valign='center' ><strong>Status</strong></td>
+      <td width='10%' align='center' valign='center' ><strong>Privileges</strong></td>
+      <!--<td width='70' align='center' valign='center' ><strong>Trophies</strong></td>-->
+      <td width='10%' align='center' valign='center' ><strong>Gems</strong></td>
+      <td width='10%' align='center' valign='center' ><strong>Golds</strong></td>
+      <td width='10%' align='center' valign='center' ><strong>Elixirs</strong></td>
+      <td width='10%' align='center' valign='center' ><strong>DarkElixirs</strong></td>
+      <td width='10%' align='center' valign='center' ><strong>Exp</strong></td>
+      </tr>
+
+{% for inf in info %}
+</tr>
+<tr class='table'>
+<td align='center' valign='center'>{{ inf['pos']}}</td>
+<td align='center' valign='center'><a href="/user/{{ base64((inf['id']|string).encode('UTF-8')).decode('utf-8')}}"><h5>{{ inf['name']}} </h5><i class="fa fa-external-link"></i></a></td>
+{% if 'username' in session %}
+    <td align='center' valign='center'>{{ inf['id'] }}</td>
+{% endif %}
+<td align='center' valign='center'>
+  <img src="/static/images/townhall/{{ inf['townhall'] }}.png" alt="TownHall {{ inf['townhall'] }}" width="70%"></td><!--</br>{{ inf['townhall'] }}</td>-->
+<td align='center' valign='center'>{{ inf['level'] }}</td>
+<td align='center' valign='center'>{{ inf['last_update'] }}</td>
+<td align='center' valign='center' class="{{ inf['status'] }}">{{ inf['status'] }}</td>
+<td align='center' valign='center' class="{{ inf['privileges'] }}">{{ inf['privileges'] }}</td>
+<!--<td align='center' valign='center'>{{ inf['Thropies'] }}</td>-->
+<td align='center' valign='center'>{{ inf['gems'] }}</td>
+<td align='center' valign='center'>{{ inf['gold'] }}</td>
+<td align='center' valign='center'>{{ inf['elixir'] }}</td>
+<td align='center' valign='center'>{{ inf['darkelixir'] }}</td>
+<td align='center' valign='center'>{{ inf['experience'] }}</td>
+{% endfor %}
+    </tr>
+</table></table>
+{% include "pagination.html" %}
+</br>
+{% include "footer.html" %}

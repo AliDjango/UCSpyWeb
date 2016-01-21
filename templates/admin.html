@@ -1,0 +1,19 @@
+{% include "header.html" %}
+{% if title %}
+<title>{{ title }} - UCSpyWeb</title>
+{% else %}
+    <title>UCSpyWeb</title>
+{% endif %}
+</head>
+{% include "menu.html" %}
+<div class="container2">
+    <div class="jumbotron">
+    <form class="form-signin" action="/saveadmin" method="post" >
+
+            <div class="form-group">
+        <input type="checkbox" name="id-visible" id="id-visible" class="form-control"required>User id should be Visible for all visitors?
+        </div>
+        <button id="btnSignIn" class="btn btn-primary btn-block" type="submit" >Save</button>
+      </form>
+</div>
+{% include "footer.html" %}
