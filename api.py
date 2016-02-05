@@ -13,7 +13,7 @@ from urllib.request import urlopen
 import configparser
 #   Core File is used for checking if server is UP or not
 import core
-import re
+import re,datetime
 from bs4 import BeautifulSoup
 
 #Getting Admin Login Information
@@ -551,7 +551,29 @@ def get_ucs_pro_info():
         return result['UCS']
     except:
         pass
-def get_ucs_api():
+
+def format_date(time):
+    year=str(time.year)
+    month=str(time.month)
+    day=str(time.day)
+    hour=str(time.hour)
+    minute=str(time.minute)
+    second=str(time.second)
+    if len(day)==1:
+        day='0'+day
+    if len(month)==1:
+        month='0'+month
+    if len(hour)==1:
+        hour='0'+hour
+    if len(minute)==1:
+        minute='0'+minute
+    if len(second)==1:
+        second='0'+second
+    time='"'+year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second+'"'
+    return time
+
+
+def get_ucs_api(cur):
     try:
         url='http://'+normal_api_url+':'+normal_api_port+'/Debug'
         result=urlopen(url).read()
@@ -562,16 +584,43 @@ def get_ucs_api():
         result={
             'InMemoryClans':result[3],
             'InMemoryPlayers':result[2],
+            'TotalConnectedClients':result[0],
         }
         return result
-    except:
+    except Exception as e:
         result={
             'InMemoryClans':'-',
             'InMemoryPlayers':'-',
+            'TotalConnectedClients':'-'
         }
         return result
+
+
+
+def get_online_players_from_database(cur):
+    time_range=format_date(datetime.datetime.utcnow() - datetime.timedelta(minutes=3))
+    now=format_date(datetime.datetime.utcnow())
+    query="SELECT * FROM `player` WHERE `LastUpdateTime` BETWEEN "+time_range+ " AND "+now
+    cur.execute(query)
+    result=cur.fetchall()
+    total=len(result)
+    return [result,total]
+
+def get_total_database_players(cur):
+    query="SELECT * FROM `player`"
+    cur.execute(query)
+    result=cur.fetchall()
+    total=len(result)
+    return [result,total]
+
+def get_total_database_clans(cur):
+    query="SELECT * FROM `clan`"
+    cur.execute(query)
+    result=cur.fetchall()
+    total=len(result)
+    return [result,total]
 #   Formates the catches information from function above.
-def get_ucs_detailed_info():
+def get_ucs_detailed_info(cur):
     out={}
     try:
         r=get_ucs_pro_info()
@@ -600,8 +649,7 @@ def get_ucs_detailed_info():
         out['totalconnectedclients']=r['TotalConnectedClients']
         out['serveronline']=online[core.isup(config['server']['host'],config['server']['port'])]
     except:#this way we return -.TODO:Use better algorithm and method for returning offline server status
-        r=get_ucs_api()
-        print(r)
+        r=get_ucs_api(cur)
         out['clientversion']='-'
         out['Codename']='-'
         out['databasetype']='-'
@@ -611,7 +659,7 @@ def get_ucs_detailed_info():
         out['logginglevel']='-'
         out['maintenance']='No'
         out['maintenancetimeleft']='-'
-        out['onlineplayers']='-'
+        out['onlineplayers']=get_online_players_from_database(cur)[1]
         out['serverport']=server['port']
         out['serverversion']='-'
         out['startingdarkelixir']='-'
@@ -622,8 +670,8 @@ def get_ucs_detailed_info():
         out['startingexperience']='0'
         out['startingshieldtime']='-'
         out['startingtrophies']='-'
-        out['totalclans']='-'
-        out['totalplayers']='-'
-        out['totalconnectedclients']='-'
+        out['totalclans']=get_total_database_clans(cur)[1]
+        out['totalplayers']=get_total_database_players(cur)[1]
+        out['totalconnectedclients']=r['TotalConnectedClients']
         out['serveronline']=online[core.isup(config['server']['host'],config['server']['port'])]
     return out

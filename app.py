@@ -36,6 +36,7 @@ def error2(page,result):
     if not result and page != 1:
         return True
 
+
 #Home Index
 @app.route('/', defaults={'page':1})
 @app.route('/users/page/<int:page>')
@@ -71,6 +72,8 @@ def index(page):
 
     cur.close()
     con.close()
+
+
 #Ban Users
 @app.route('/bans', defaults={'page':1})
 @app.route('/bans/page/<int:page>')
@@ -107,11 +110,15 @@ def bans(page):
                             error=str(e),
                         )
 
+
 #Server Statistics
 @app.route('/stats')
 def stats():
+    con = core.connect_mdb()
+    con.commit()
+    cur = con.cursor()
     try:
-        r=get_ucs_detailed_info()
+        r=get_ucs_detailed_info(cur)
         return render_template('stats.html',
                                title='Stats',
                                info=r,
@@ -121,6 +128,8 @@ def stats():
                                title='Error',
                                error='Cannot Get Information:%s' % str(e),
                                )
+    cur.close()
+    con.close()
 
 
 #Game Administrators
@@ -157,6 +166,7 @@ def admins(page):
                             error=str(e),
                         )
 
+
 #Clans
 @app.route('/clans', defaults={'page':1})#
 @app.route('/clans/page/<int:page>')
@@ -190,6 +200,7 @@ def clans(page):
                             title='Home',
                             error=str(e),
                         )
+
 
 #Player Profile
 @app.route('/user/<userid>')
@@ -247,6 +258,7 @@ def show_user_profile(userid):
                             error=str(e),
                         )
 
+
 #clan profile
 @app.route('/clan/<clanid>')
 def show_clan_profile(clanid):
@@ -277,10 +289,12 @@ def show_clan_profile(clanid):
                             error=str(e),
                         )
 
+
 #Administrator Options
 @app.route('/admin')
 def admin_panel():
     return render_template('admin.html',title='Admin Panel')
+
 
 #Signin
 @app.route('/signin', methods=['GET', 'POST'])
@@ -323,6 +337,7 @@ def signout():
     return redirect(url_for('signin'))
   session.pop('username', None)
   return redirect(url_for('index'))
+
 
 #run the app.
 if __name__ == '__main__':
