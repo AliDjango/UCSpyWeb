@@ -13,17 +13,28 @@ from urllib.request import urlopen
 import configparser
 #   Core File is used for checking if server is UP or not
 import core
-
+import re
+from bs4 import BeautifulSoup
 
 #Getting Admin Login Information
 config = configparser.ConfigParser()
 config.read('config.ini')
 #Catching UCS Server Information From Config file
-debug=config['ucs debugging']
+
+#ucs pro api for stats page
+debug=config['ucs pro api']
 debug_port=debug['port']
 debug_key=debug['key']
 debug_url=debug['url']
+
+#server information
 server=config['server']
+
+#ucs normal api.used if cant access to pro api.this wont have all information!
+normal_api=config['ucs api']
+normal_api_port=normal_api['port']
+normal_api_url=normal_api['url']
+
 
 #troop Names/Need some Editing.TODO:Correct names that are different in game,like ProtoType or Gargoyle or ...
 troop = [
@@ -518,11 +529,11 @@ def get_info_clan_all(cur,perpage,startat):
     query="SELECT * FROM `clan`"
     cur.execute(query)
     total=cur.rowcount
-    result=cur.fetchall()
+    result1=cur.fetchall()
     query="SELECT * FROM `clan` LIMIT %s,%s" %(startat,perpage)
     cur.execute(query)
-    result=cur.rowcount
     result2=cur.fetchall()
+    result=len(result2)
     out=['']*result
     for i in range(result):
         out[i]=get_clan_info(result2[i][0],cur)
@@ -531,19 +542,39 @@ def get_info_clan_all(cur,perpage,startat):
 
 
 #   Creates a connection to UCS Pro Debug page and catches information.
-def get_ucs_info():
-    url='http://'+debug_url+':'+debug_port+'/'+debug_key
-    result=urlopen(url).read()
-    result=result.decode('utf-8')
-    result=json.loads(result)
-    return result['UCS']
-
-
+def get_ucs_pro_info():
+    try:
+        url='http://'+debug_url+':'+debug_port+'/'+debug_key
+        result=urlopen(url).read()
+        result=result.decode('utf-8')
+        result=json.loads(result)
+        return result['UCS']
+    except:
+        pass
+def get_ucs_api():
+    try:
+        url='http://'+normal_api_url+':'+normal_api_port+'/Debug'
+        result=urlopen(url).read()
+        result=result.decode('utf-8')
+        soup = BeautifulSoup(result, "html.parser")
+        all_text = ''.join(soup.findAll(text=True))
+        result=re.findall('\d+', all_text )
+        result={
+            'InMemoryClans':result[3],
+            'InMemoryPlayers':result[2],
+        }
+        return result
+    except:
+        result={
+            'InMemoryClans':'-',
+            'InMemoryPlayers':'-',
+        }
+        return result
 #   Formates the catches information from function above.
 def get_ucs_detailed_info():
     out={}
     try:
-        r=get_ucs_info()
+        r=get_ucs_pro_info()
         out['clientversion']=r['ClientVersion']
         out['Codename']=r['Codename']
         out['databasetype']=database[r['DatabaseType']]
@@ -569,12 +600,14 @@ def get_ucs_detailed_info():
         out['totalconnectedclients']=r['TotalConnectedClients']
         out['serveronline']=online[core.isup(config['server']['host'],config['server']['port'])]
     except:#this way we return -.TODO:Use better algorithm and method for returning offline server status
+        r=get_ucs_api()
+        print(r)
         out['clientversion']='-'
         out['Codename']='-'
         out['databasetype']='-'
         out['pve']='-'
-        out['inmemoryclans']='-'
-        out['inmemoryplayers']='-'
+        out['inmemoryclans']=r['InMemoryClans']
+        out['inmemoryplayers']=r['InMemoryPlayers']
         out['logginglevel']='-'
         out['maintenance']='No'
         out['maintenancetimeleft']='-'
